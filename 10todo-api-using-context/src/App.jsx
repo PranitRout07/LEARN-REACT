@@ -1,8 +1,10 @@
-import { useState } from 'react'
+import { useState,useEffect } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 import { TodoProvider } from './context/TodoContext'
+import TodoForm from './components/TodoForm'
+import TodoItem from './components/TodoItem'
 
 function App() {
   // const [count, setCount] = useState(0)
@@ -15,7 +17,7 @@ function App() {
 
   const updateTodo = (id,todo) =>{
     setTodos((prev)=>{
-      prev.map((val)=>{
+     return prev.map((val)=>{
         if (val.id===id){
             return todo
         }else{
@@ -27,7 +29,7 @@ function App() {
   }
   const deleteTodo = (id)=>{
     setTodos((prev)=>{
-      prev.filter((val)=>{
+     return prev.filter((val)=>{
         return val.id !== id
       })
     })
@@ -35,7 +37,7 @@ function App() {
   }
   const toogleComplete = (id) =>{
     setTodos((prev)=>{
-      prev.map((val)=>{
+     return prev.map((val)=>{
         if (val.id===id){
           return {...val,completed:!val.completed}
         }else{
@@ -60,15 +62,24 @@ function App() {
   
   return (
     <>
-    <TodoProvider values={{todos,addTodo,updateTodo,deleteTodo,toogleComplete}}>
+    <TodoProvider value={{todos,addTodo,updateTodo,deleteTodo,toogleComplete}}>
     <div className="bg-[#172842] min-h-screen py-8">
                 <div className="w-full max-w-2xl mx-auto shadow-md rounded-lg px-4 py-3 text-white">
                     <h1 className="text-2xl font-bold text-center mb-8 mt-2">Manage Your Todos</h1>
                     <div className="mb-4">
+                      <TodoForm/>
                         {/* Todo form goes here */} 
                     </div>
                     <div className="flex flex-wrap gap-y-3">
-                        {/*Loop and Add TodoItem here */}
+                        {
+                          
+                          todos.map((t)=>(
+                            // console.log(t);
+                            <div key={t.id}>
+                              <TodoItem todo={t}/>
+                            </div>
+                          ))
+                        }
                     </div>
                 </div>
             </div>

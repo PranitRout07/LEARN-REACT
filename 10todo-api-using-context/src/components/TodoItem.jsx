@@ -1,6 +1,22 @@
-function TodoItem({ todo }) {
-    
+import { useState } from "react";
+import { useTodo } from "../context/TodoContext";
 
+function TodoItem({ todo }) {
+    //receiving a single todo object
+    console.log("todo:",todo)
+    const {todos,updateTodo,deleteTodo,toogleComplete} = useTodo()
+    const [todoMsg,setTodoMsg]=  useState(todo.todo)
+    const [isTodoEditable,setIsTodoEditable] = useState(false)
+    function editTodo(){
+        // e.preventDefault();
+        updateTodo(todo.id,{...todo,todo:todoMsg})
+        setIsTodoEditable(false)
+    }
+    function toggleCompleted(){
+        // e.preventDefault();
+        toogleComplete(todo.id);
+
+    }
     return (
         <div
             className={`flex border border-black/10 rounded-lg px-3 py-1.5 gap-x-3 shadow-sm shadow-white/50 duration-300  text-black ${
