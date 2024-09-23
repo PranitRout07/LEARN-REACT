@@ -16,9 +16,9 @@ function App() {
   const [count, setCount] = useState(0)
 
   return (
-    <div className='min-h-screen w-full overflow-x-hidden bg-[#e2f9f5]'>
+    <div className='min-h-screen w-full overflow-x-hidden bg-[#ffffff]'>
 
-      <div className='mx-[12%] bg-[#e2f9f5]'>
+      <div className='mx-[12%] bg-[#ffffff]'>
       <Layout />
       </div>
 
