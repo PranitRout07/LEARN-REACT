@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom"
 // import { useState } from "react";
 
 // const [curPost,setCurPost] = useState({
@@ -26,7 +27,7 @@ const z = (val) =>{
         </div>
 
         <div>
-            <button  className="p-3 bg-teal-500 hover:bg-teal-400 hover:scale-105 rounded-2xl">Read More</button>
+            <button  className="p-3 bg-teal-500 hover:bg-teal-400 hover:scale-105 rounded-2xl"><Link to={`/post/${val.title}`} >Read More</Link></button>
         </div>
 
     </div>
