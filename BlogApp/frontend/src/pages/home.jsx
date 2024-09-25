@@ -1,4 +1,6 @@
-import { Link } from "react-router-dom"
+import { useEffect, useState } from "react"
+import { Link, useLocation } from "react-router-dom"
+import axios from "axios"
 // import { useState } from "react";
 
 // const [curPost,setCurPost] = useState({
@@ -27,7 +29,7 @@ const z = (val) =>{
         </div>
 
         <div>
-            <button  className="p-3 bg-teal-500 hover:bg-teal-400 hover:scale-105 rounded-2xl"><Link to={`/post/${val.title}`} >Read More</Link></button>
+            <button  className="p-3 bg-teal-500 hover:bg-teal-400 hover:scale-105 rounded-2xl"><Link to={`/post/${val.id}`} >Read More</Link></button>
         </div>
 
     </div>
@@ -45,45 +47,63 @@ const y = (val) =>{
 
 function Home(){
 
+    const [posts,setPosts] = useState([])
+    const category  = useLocation().search
 
-    const posts = [
-        {
-            title:"Hello",
-            description:"Lorem ipsum dolor, sit amet consectetur adipisicing elit. Repudiandae animi harum, illum asperiores ipsam amet praesentium, quasi fugiat modi magnam eos doloremque possimus veritatis ullam quo eaque neque porro optio.Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae at iure accusamus, ut fugit eaque architecto sit fuga quae sed eligendi numquam aperiam quo deleniti sint quibusdam accusantium, perferendis beatae.",
-            image:"https://images.pexels.com/photos/1366919/pexels-photo-1366919.jpeg?auto=compress&cs=tinysrgb&w=800"
+    // console.log(category)
+    useEffect(()=>{
+        const fetchData = async()=>{
+            try{
+                const resp = await axios.get(`/api/details/posts/${category}`)
+                setPosts(resp.data)
+            }catch(err){
+                console.log("Error while fetching posts data",err)
+            }
+        }
+
+        fetchData();
+    },[category])
+
+    console.log(posts)
+
+    // const posts = [
+    //     {
+    //         title:"Hello",
+    //         description:"Lorem ipsum dolor, sit amet consectetur adipisicing elit. Repudiandae animi harum, illum asperiores ipsam amet praesentium, quasi fugiat modi magnam eos doloremque possimus veritatis ullam quo eaque neque porro optio.Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae at iure accusamus, ut fugit eaque architecto sit fuga quae sed eligendi numquam aperiam quo deleniti sint quibusdam accusantium, perferendis beatae.",
+    //         image:"https://images.pexels.com/photos/1366919/pexels-photo-1366919.jpeg?auto=compress&cs=tinysrgb&w=800"
         
-        },
-        {
-            title:"Demo",
-            description:"Lorem ipsum dolor, sit amet consectetur adipisicing elit. Repudiandae animi harum, illum asperiores ipsam amet praesentium, quasi fugiat modi magnam eos doloremque possimus veritatis ullam quo eaque neque porro optio.Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae at iure accusamus, ut fugit eaque architecto sit fuga quae sed eligendi numquam aperiam quo deleniti sint quibusdam accusantium, perferendis beatae.",
-            image:"https://images.pexels.com/photos/1670187/pexels-photo-1670187.jpeg?auto=compress&cs=tinysrgb&w=800"
+    //     },
+    //     {
+    //         title:"Demo",
+    //         description:"Lorem ipsum dolor, sit amet consectetur adipisicing elit. Repudiandae animi harum, illum asperiores ipsam amet praesentium, quasi fugiat modi magnam eos doloremque possimus veritatis ullam quo eaque neque porro optio.Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae at iure accusamus, ut fugit eaque architecto sit fuga quae sed eligendi numquam aperiam quo deleniti sint quibusdam accusantium, perferendis beatae.",
+    //         image:"https://images.pexels.com/photos/1670187/pexels-photo-1670187.jpeg?auto=compress&cs=tinysrgb&w=800"
         
-        },
-        {
-            title:"Demo2",
-            description:"Lorem ipsum dolor, sit amet consectetur adipisicing elit. Repudiandae animi harum, illum asperiores ipsam amet praesentium, quasi fugiat modi magnam eos doloremque possimus veritatis ullam quo eaque neque porro optio.Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae at iure accusamus, ut fugit eaque architecto sit fuga quae sed eligendi numquam aperiam quo deleniti sint quibusdam accusantium, perferendis beatae.",
-            image:"https://images.pexels.com/photos/1955134/pexels-photo-1955134.jpeg?auto=compress&cs=tinysrgb&w=800"
+    //     },
+    //     {
+    //         title:"Demo2",
+    //         description:"Lorem ipsum dolor, sit amet consectetur adipisicing elit. Repudiandae animi harum, illum asperiores ipsam amet praesentium, quasi fugiat modi magnam eos doloremque possimus veritatis ullam quo eaque neque porro optio.Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae at iure accusamus, ut fugit eaque architecto sit fuga quae sed eligendi numquam aperiam quo deleniti sint quibusdam accusantium, perferendis beatae.",
+    //         image:"https://images.pexels.com/photos/1955134/pexels-photo-1955134.jpeg?auto=compress&cs=tinysrgb&w=800"
         
-        },
-        {
-            title:"Demo3",
-            description:"Lorem ipsum dolor, sit amet consectetur adipisicing elit. Repudiandae animi harum, illum asperiores ipsam amet praesentium, quasi fugiat modi magnam eos doloremque possimus veritatis ullam quo eaque neque porro optio.Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae at iure accusamus, ut fugit eaque architecto sit fuga quae sed eligendi numquam aperiam quo deleniti sint quibusdam accusantium, perferendis beatae.",
-            image:"https://images.pexels.com/photos/1743165/pexels-photo-1743165.jpeg?auto=compress&cs=tinysrgb&w=800"
+    //     },
+    //     {
+    //         title:"Demo3",
+    //         description:"Lorem ipsum dolor, sit amet consectetur adipisicing elit. Repudiandae animi harum, illum asperiores ipsam amet praesentium, quasi fugiat modi magnam eos doloremque possimus veritatis ullam quo eaque neque porro optio.Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae at iure accusamus, ut fugit eaque architecto sit fuga quae sed eligendi numquam aperiam quo deleniti sint quibusdam accusantium, perferendis beatae.",
+    //         image:"https://images.pexels.com/photos/1743165/pexels-photo-1743165.jpeg?auto=compress&cs=tinysrgb&w=800"
         
-        },
-        {
-            title:"Hello1",
-            description:"Lorem ipsum dolor, sit amet consectetur adipisicing elit. Repudiandae animi harum, illum asperiores ipsam amet praesentium, quasi fugiat modi magnam eos doloremque possimus veritatis ullam quo eaque neque porro optio.Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae at iure accusamus, ut fugit eaque architecto sit fuga quae sed eligendi numquam aperiam quo deleniti sint quibusdam accusantium, perferendis beatae.",
-            image:"https://images.pexels.com/photos/1366909/pexels-photo-1366909.jpeg?auto=compress&cs=tinysrgb&w=800"
+    //     },
+    //     {
+    //         title:"Hello1",
+    //         description:"Lorem ipsum dolor, sit amet consectetur adipisicing elit. Repudiandae animi harum, illum asperiores ipsam amet praesentium, quasi fugiat modi magnam eos doloremque possimus veritatis ullam quo eaque neque porro optio.Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae at iure accusamus, ut fugit eaque architecto sit fuga quae sed eligendi numquam aperiam quo deleniti sint quibusdam accusantium, perferendis beatae.",
+    //         image:"https://images.pexels.com/photos/1366909/pexels-photo-1366909.jpeg?auto=compress&cs=tinysrgb&w=800"
         
-        },
-        {
-            title:"Hello6",
-            description:"Lorem ipsum dolor, sit amet consectetur adipisicing elit. Repudiandae animi harum, illum asperiores ipsam amet praesentium, quasi fugiat modi magnam eos doloremque possimus veritatis ullam quo eaque neque porro optio.Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae at iure accusamus, ut fugit eaque architecto sit fuga quae sed eligendi numquam aperiam quo deleniti sint quibusdam accusantium, perferendis beatae.",
-            image:"https://images.pexels.com/photos/1624496/pexels-photo-1624496.jpeg?auto=compress&cs=tinysrgb&w=800"
+    //     },
+    //     {
+    //         title:"Hello6",
+    //         description:"Lorem ipsum dolor, sit amet consectetur adipisicing elit. Repudiandae animi harum, illum asperiores ipsam amet praesentium, quasi fugiat modi magnam eos doloremque possimus veritatis ullam quo eaque neque porro optio.Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae at iure accusamus, ut fugit eaque architecto sit fuga quae sed eligendi numquam aperiam quo deleniti sint quibusdam accusantium, perferendis beatae.",
+    //         image:"https://images.pexels.com/photos/1624496/pexels-photo-1624496.jpeg?auto=compress&cs=tinysrgb&w=800"
         
-        },
-    ]
+    //     },
+    // ]
     
     return (
         <div className="w-full h-full p-7">

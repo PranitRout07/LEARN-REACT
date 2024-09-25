@@ -67,7 +67,7 @@ function Register(){
                     
                     {response && response.status!==200?<p className="text-center text-red-700">{response.data}</p>:""}
                     <div className="text-center">
-                    <span className="text-center">Do have an account?<Link to="/login"><p className="hover:text-teal-500 font-semibold">Login</p></Link></span>
+                    <span className="text-center">Do have an account?<Link to="/login"><u className="hover:text-teal-500 font-semibold">Login</u></Link></span>
                     </div>
                     {console.log(response.status,"response")}
 

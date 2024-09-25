@@ -1,10 +1,12 @@
 import { Router } from "express";
+import { addPost, deletePost, getPost, getPosts, updatePost } from "../controllers/postController.js";
 
 
 const router = Router()
 
-router.get("/",(req,res)=>{
-    res.json("post")
-})
-
+router.get("/posts", getPosts)
+router.get("/post/:id",getPost)
+router.post("/post/:id",addPost)
+router.put("/post/:id",updatePost)
+router.delete("/post/:id",deletePost)
 export default router

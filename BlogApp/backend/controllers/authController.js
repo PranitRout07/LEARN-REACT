@@ -67,7 +67,12 @@ const login = (req,res) => {
 }
 
 const logout = (req,res) => {
-    console.log("request through logout")
+    res.clearCookie("access_token",{
+        sameSite:"none",
+        secure:true
+    }).status(200).json("user logged out")
+    // res.status(200).json("request through logout")
+    // return
 }
 
 export {register,login,logout}

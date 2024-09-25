@@ -72,7 +72,7 @@ function Login(){
                 
                 {response && response.status!==200?<p className="text-center text-red-700">{response.data}</p>:""}
                 <div className="text-center">
-                <span className="text-center">Don't have an account?<Link to="/register"><p className="hover:text-teal-500 font-semibold" >Register</p></Link></span>
+                <span className="text-center">Don't have an account?<Link to="/register"><u className="hover:text-teal-500 font-semibold" >Register</u></Link></span>
                 </div>
 
             </form>
