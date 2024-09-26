@@ -46,13 +46,13 @@ export default function SinglePage(){
                 <div className="w-full">
                     {/* image banner */}
                     <div className="w-full max-h-[25%]">
-                        <img className="w-[100%] rounded-lg shadow-2xl" src={post?.image}/>
+                        <img className="w-[100%] rounded-lg shadow-2xl" src={`/uploads/${post?.image}`}/>
                     </div>
                 </div>
 
                 <div className="flex gap-2 my-auto items-center">
                     <div>
-                        <img className="rounded-full h-14 w-14"  src={post.img}/>
+                        <img className="rounded-full h-14 w-14"  src={`${post.img}`}/>
                     </div>
                     <div className="flex-col">
                         <div className="font-semibold">
@@ -60,7 +60,7 @@ export default function SinglePage(){
                         </div>
 
                         <div className="">
-                            <p>Posted { moment(post.created_time).fromNow()}</p>
+                            <p>Posted { moment(post.create_time).fromNow()}</p>
                         </div>
 
                         
@@ -69,11 +69,11 @@ export default function SinglePage(){
 
                   {post.username===currentUser?.username && currentUser!==null && (<div className="flex gap-2">
                             <div>
-                                <Link to={`/write/?edit=${postID}`}><img className="h-5 w-7" src="https://w7.pngwing.com/pngs/818/878/png-transparent-computer-icons-editing-symbol-symbol-miscellaneous-angle-text.png"/></Link>
+                                <Link to={`/write/?edit=${postID}`} state={post}><img className="h-5 w-7" src="https://w7.pngwing.com/pngs/818/878/png-transparent-computer-icons-editing-symbol-symbol-miscellaneous-angle-text.png"/></Link>
                             </div>
 
                             <div>
-                            <img onClick={handleDelete} className="hover:cursor-pointer h-5 w-7" src="trash.png"/>
+                            <img onClick={handleDelete} className="hover:cursor-pointer h-5 w-7" src="/trash.png"/>
 
                             </div>
                         </div>)}
@@ -96,7 +96,7 @@ export default function SinglePage(){
 
             <div className="w-[25%] h-full">
 
-                <Menu/>
+                <Menu category={post.category} curPost={post}/>
                 {/* list of suggested posts */}
             </div>
 

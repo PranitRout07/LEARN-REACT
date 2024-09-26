@@ -20,17 +20,17 @@ const z = (val) =>{
     return (
         <div className="w-2/3 space-y-3">
 
-        <div className="w-full text-5xl">
+        <div className="w-full text-5xl pb-1">
             {val.title}
         </div>
 
-        <div className="w-full h-[60%]">
+        <div className="w-full max-h-[60%] pb-1">
             {val.description}
         </div>
 
-        <div>
-            <button  className="p-3 bg-teal-500 hover:bg-teal-400 hover:scale-105 rounded-2xl"><Link to={`/post/${val.id}`} >Read More</Link></button>
-        </div>
+        <Link to={`/post/${val.id}`} ><div>
+            <button  className="p-3 bg-teal-500 hover:bg-teal-400 hover:scale-105 rounded-2xl pb-1">Read More</button>
+        </div></Link>
 
     </div>
     )
@@ -40,7 +40,7 @@ const z = (val) =>{
 const y = (val) =>{
     return (
         <div className="w-1/3 flex items-center">
-        <img className="w-[85%] max-h-[90%]" src={val.image}/>
+        <img className="w-[85%] max-h-[90%]" src={`/uploads/${val.image}`}/>
     </div>
     )
 }

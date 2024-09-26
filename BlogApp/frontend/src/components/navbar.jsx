@@ -11,7 +11,7 @@ function NavBar(){
             
             <div className="flex justify-center items-center">
                 <div>
-                    <img className="w-[120px] h-[80px]" src="Scribor.png"/>
+                    <img className="w-[120px] h-[80px]" src="/Scribor.png"/>
                 </div>
                 
 
@@ -63,7 +63,7 @@ function NavBar(){
                         {!currentUser?.username?<Link to="/login"><span>Login</span></Link>:< span onClick={logout}>Logout</span>}
                     </div>
                     <div className="text-white mr-2 bg-teal-400 p-2 rounded-full hover:text-teal-500 hover:bg-white hover:border-[1px] hover:border-solid hover:border-teal-400 hover:cursor-pointer  font-semibold" >
-                    <Link to="/write"><span>Write</span></Link>
+                    {currentUser?.id?<Link to="/write"><span>Write</span></Link>:<Link to="/login"><span>Write</span></Link>}
                     </div>
 
             </div>

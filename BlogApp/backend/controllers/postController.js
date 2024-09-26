@@ -17,10 +17,16 @@ export const getPosts = (req,res) => {
 
 export const addPost = (req,res) => {
 
-    const query = "insert into posts(`title`,`description`,`image`)"
-    values = [req.body.username,]
-    
-    res.status(200).json("add post")
+  
+    const query = "insert into posts(`title`,`description`,`uid`,`category`,`image`) values (?)"
+    const values = [req.body.title,req.body.description,req.body.uid,req.body.category,req.body.image]
+    db.query(query,[values],(err,data)=>{
+        if(err){
+            res.json(err)
+        }
+        res.status(200).json("added a new post")
+    })
+
 }
 
 export const getPost = (req,res) => {
@@ -69,5 +75,29 @@ export const deletePost = (req,res) => {
 }
 
 export const updatePost = (req,res) => {
-    res.status(200).json("update post")
+   
+    if (!req.cookies.access_token){
+        res.status(401).json("Not authenticated!")
+    }
+
+    jwt.verify(req.cookies.access_token,process.env.JWT_SECRET,(err,data)=>{
+        if(err){
+            res.status(403).json("Not allowed to update")
+        }
+        const query = "update posts set `title` = ? , `description` = ? ,`uid` = ?,`category` = ?,`image` = ? where id = ?"
+        const id = req.params?.id
+        console.log("id",id)
+        const values = [req.body.title,req.body.description,req.body.uid,req.body.category,req.body.image,id]
+    
+        db.query(query,values,(err,data)=>{
+            console.log(data)
+            if(err){
+                res.json(err)
+            }else{
+                res.status(200).json("post updated successfully")
+            }
+        })
+
+    })
+
 }
