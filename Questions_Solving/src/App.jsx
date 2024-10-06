@@ -5,6 +5,8 @@ import './App.css'
 import DropDown from './components/DropDown'
 import ColorGuesser from './components/ColorGuesser'
 import TicketBook from './components/TicketBook'
+import MultiSelectDropDown from './components/MultiSelectDropDown'
+import Wordle from './components/Wordle'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -14,7 +16,11 @@ function App() {
     {/* <DropDown/> */}
     {/* <ColorGuesser/> */}
 
-    <TicketBook/>
+    {/* <TicketBook/> */}
+    {/* <MultiSelectDropDown/> */}
+    
+    
+    <Wordle/>
     </>
   )
 }
