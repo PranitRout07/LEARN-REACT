@@ -46,7 +46,6 @@ function Wordle() {
         setBgColor(color)
         
     },[])
-
     
 
     useEffect(()=>{

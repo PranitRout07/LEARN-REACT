@@ -7,7 +7,7 @@ import ColorGuesser from './components/ColorGuesser'
 import TicketBook from './components/TicketBook'
 import MultiSelectDropDown from './components/MultiSelectDropDown'
 import Wordle from './components/Wordle'
-
+import UndoRedo from './components/undoRedo'
 function App() {
   const [count, setCount] = useState(0)
 
@@ -20,7 +20,8 @@ function App() {
     {/* <MultiSelectDropDown/> */}
     
     
-    <Wordle/>
+    {/* <Wordle/> */}
+    <UndoRedo/>
     </>
   )
 }
