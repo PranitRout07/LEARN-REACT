@@ -8,6 +8,7 @@ import TicketBook from './components/TicketBook'
 import MultiSelectDropDown from './components/MultiSelectDropDown'
 import Wordle from './components/Wordle'
 import UndoRedo from './components/undoRedo'
+import TrafficLight from './components/TrafficLight'
 function App() {
   const [count, setCount] = useState(0)
 
@@ -21,7 +22,8 @@ function App() {
     
     
     {/* <Wordle/> */}
-    <UndoRedo/>
+    {/* <UndoRedo/> */}
+    <TrafficLight/>
     </>
   )
 }
