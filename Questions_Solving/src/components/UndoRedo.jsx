@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 function UndoRedo() {
 
@@ -6,12 +6,7 @@ function UndoRedo() {
         x:0,
         y:0
     }])
-    const [deleted,setDeleted] = useState([
-      {
-        x:0,
-        y:0
-      }  
-    ])
+    const [deleted,setDeleted] = useState([])
     // const [copyPoints,setCopyPoints]=useState([...points])
     
     function handleBody(e){
@@ -28,12 +23,20 @@ function UndoRedo() {
         //     prevObj = prevObj.splice(0,prevObj.length-1)
         //     return prevObj
         // })
-       
-    setPoints([...points,...deleted[deleted.length-1]])
-    setDeleted([...deleted.splice(0,deleted.length-1)])
-        console.log("redo")
+
+    if(deleted.length!=0){
+        setPoints([...points,deleted[deleted.length-1]])
+        setDeleted([...deleted.splice(0,deleted.length-1)])
+    }else{
+        return;
+    }
+
+
+        // console.log("redo")
     
     }
+
+
     function handleUndo(e){
         e.preventDefault()
         console.log(e.clientX,e.clientY)
@@ -47,10 +50,7 @@ function UndoRedo() {
         setDeleted([...deleted,...points.splice(len-1,len)])
         setPoints([...points.splice(0,len-1)])
 
-        
-        console.log("undo")
-    }
-console.log("deleted",deleted)
+}
 
   return (
     <div className='min-h-screen w-full flex-col '>
