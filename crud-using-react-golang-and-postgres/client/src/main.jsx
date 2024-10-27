@@ -4,16 +4,22 @@ import './index.css'
 import App from './App.jsx'
 import Products from './components/Products.jsx'
 import Cart from './components/Cart.jsx'
+import Layout from './components/Layout.jsx'
 import { RouterProvider,createBrowserRouter } from 'react-router-dom'
 const router = createBrowserRouter([
-
   {
-    path:"/",
-    element:<Products/>
-  },
-  {
-    path:"/cart",
-    element:<Cart/>
+    path:'/',
+    element:<Layout/>,
+    children:[
+      {
+        path:"",
+        element:<Products/>
+      },
+      {
+        path:"cart",
+        element:<Cart/>
+      },
+    ]
   }
 ])
 createRoot(document.getElementById('root')).render(
