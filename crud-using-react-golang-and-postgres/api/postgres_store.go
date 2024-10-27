@@ -12,7 +12,7 @@ type PostgresStore struct {
 }
 
 func CreatePostgresStore() *PostgresStore {
-	connStr := "postgres://postgres:pqdb@host.docker.internal:5432?sslmode=disable"
+	connStr := "postgres://postgres:ecart@host.docker.internal:5432?sslmode=disable"
 	db, err := sql.Open("postgres", connStr)
 	if err != nil {
 		panic(err)
@@ -37,7 +37,7 @@ func (db PostgresStore) getallproducts() (*[]Product, error) {
 	var product Product
 
 	for rows.Next() {
-		err := rows.Scan(product.Title, product.Price, product.Image, product.Description)
+		err := rows.Scan(&product.Id,&product.Title, &product.Image, &product.Description,&product.Price,&product.Incart)
 		if err != nil {
 			return nil, err
 		}
