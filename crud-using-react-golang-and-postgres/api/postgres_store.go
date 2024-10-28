@@ -28,7 +28,66 @@ func CreatePostgresStore() *PostgresStore {
 }
 
 func (db PostgresStore) getallproducts() (*[]Product, error) {
-	q := `select * from products`
+	q := `select * from products order by id`
+	rows, err := db.pg.Query(q)
+	if err != nil {
+		return nil, err
+	}
+	products := []Product{}
+	var product Product
+
+	for rows.Next() {
+		err := rows.Scan(&product.Id,&product.Title, &product.Image, &product.Description,&product.Price,&product.Incart)
+		if err != nil {
+			return nil, err
+		}
+		products = append(products, product)
+	}
+	return &products, nil
+}
+
+func (db PostgresStore)addToCart(id int)(*Product,error){
+	q := `update products set incart=true where id=$1`
+	rows,err := db.pg.Query(q,id)
+	if err!=nil{
+		return nil,err
+	}
+	
+	var product Product
+
+	for rows.Next() {
+		err := rows.Scan(&product.Id,&product.Title, &product.Image, &product.Description,&product.Price,&product.Incart)
+		if err != nil {
+			return nil, err
+		}
+	}
+	return &product,nil
+}
+
+
+
+func (db PostgresStore)removeFromCart(id int)(*Product,error){
+	q := `update products set incart=false where id=$1`
+	rows,err := db.pg.Query(q,id)
+	if err!=nil{
+		return nil,err
+	}
+	
+	var product Product
+
+	for rows.Next() {
+		err := rows.Scan(&product.Id,&product.Title, &product.Image, &product.Description,&product.Price,&product.Incart)
+		if err != nil {
+			return nil, err
+		}
+	}
+	return &product,nil
+}
+
+
+
+func (db PostgresStore) getCartproducts() (*[]Product, error) {
+	q := `select * from products where incart=true`
 	rows, err := db.pg.Query(q)
 	if err != nil {
 		return nil, err
