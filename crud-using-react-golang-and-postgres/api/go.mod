@@ -1,3 +1,5 @@
 module github.com/PranitRout07/crud-api
 
-go 1.21.0
+go 1.23.2
+
+require github.com/lib/pq v1.10.9
