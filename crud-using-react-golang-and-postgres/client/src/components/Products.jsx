@@ -22,7 +22,8 @@ function Products() {
       productIncart:""
     },])
     async function GetAllProducts(){
-      const resp = await axios.get("/api/products")
+      const resp = await axios.get("http://localhost:4000/api/products") //dev 
+      // const resp = await axios.get("ecart-svc-bk.default.svc.cluster.local:4000/api/products")
       if(resp.status===200){
         console.log(resp.data)
         setProducts(resp.data.length>0 && resp.data.map(product => ({
@@ -42,7 +43,8 @@ function Products() {
 
   async function addToCart(e){
     e.preventDefault();
-    const resp = await axios.put(`/api/update/${e.target.value}`)
+    const resp = await axios.put(`http://localhost:4000/api/update/${e.target.value}`)
+    // const resp = await axios.put(`ecart-svc-bk.default.svc.cluster.local:4000/api/update/${e.target.value}`)
     if(resp.data=="added to cart"){
           GetAllProducts();   
     }
@@ -51,7 +53,8 @@ function Products() {
 
   async function removeFromCart(e) {
     e.preventDefault();
-    const resp = await axios.put(`/api/remove/${e.target.value}`)
+    const resp = await axios.put(`http://localhost:4000/api/remove/${e.target.value}`)
+    // const resp = await axios.put(`ecart-svc-bk.default.svc.cluster.local:4000/api/remove/${e.target.value}`)
     if(resp.data=="removed from cart"){
           GetAllProducts();   
     }

@@ -15,7 +15,8 @@ function Cart() {
 
   const [products, setProducts] = useState([])
   async function GetCartProducts() {
-    const resp = await axios.get("/api/getcartproducts")
+    const resp = await axios.get("http://localhost:4000/api/getcartproducts") //dev 
+    // const resp = await axios.get("ecart-svc-bk.default.svc.cluster.local:4000/api/getcartproducts") 
 
     if (resp.status === 200) {
     setProducts([...resp.data])
@@ -29,7 +30,8 @@ function Cart() {
 
   async function removeFromCart(e) {
     e.preventDefault();
-    const resp = await axios.put(`/api/remove/${e.target.value}`)
+    const resp = await axios.put(`http://localhost:4000/api/remove/${e.target.value}`)
+    // const resp = await axios.put(`ecart-svc-bk.default.svc.cluster.local:4000/api/remove/${e.target.value}`)
     if (resp.data == "removed from cart") {
       GetCartProducts();
     }
