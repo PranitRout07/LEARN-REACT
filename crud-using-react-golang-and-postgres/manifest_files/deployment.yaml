@@ -1,0 +1,81 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgres-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgres
+  template:
+    metadata:
+      labels:
+        app: postgres
+    spec:
+      containers:
+        - name: postgres
+          image: postgres:16
+          env:
+            - name: POSTGRES_USER
+              value: postgres
+            - name: POSTGRES_PASSWORD
+              value: ecart
+            - name: POSTGRES_DB
+              value: products
+          ports:
+            - containerPort: 5432
+          volumeMounts:
+            - mountPath: /var/lib/postgresql/data
+              name: postgres-storage
+      volumes:
+        - name: postgres-storage
+          persistentVolumeClaim:
+            claimName: pv-claim
+
+
+--- 
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: client
+  labels:
+    app: ecart-fk
+spec:
+  selector:
+    matchLabels:
+      app: ecart-fk
+  template:
+    metadata:
+      labels:
+        app: ecart-fk
+    spec:
+      containers:
+      - image: pranit007/ecart-frontend:prod
+        name: ecart-fk
+        ports:
+        - containerPort: 3000
+    
+
+--- 
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api
+  labels:
+    app: ecart-bk
+spec:
+  selector:
+    matchLabels:
+      app: ecart-bk
+  template:
+    metadata:
+      labels:
+        app: ecart-bk
+    spec:
+      containers:
+      - image: pranit007/ecart-backend:prod
+        name: ecart-bk
+        ports:
+        - containerPort: 4000

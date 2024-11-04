@@ -1,0 +1,41 @@
+apiVersion: v1 
+kind: Service 
+metadata:
+  name: postgres-svc
+spec:
+  selector:
+    app: postgres
+  ports:
+    - protocol: TCP
+      port: 5432
+      targetPort: 5432
+  type: ClusterIP
+
+---
+apiVersion: v1 
+kind: Service 
+metadata:
+  name: ecart-svc-bk
+spec:
+  selector:
+    app: ecart-bk
+  ports:
+    - protocol: TCP
+      port: 4000
+      targetPort: 4000
+  type: ClusterIP
+
+---
+
+apiVersion: v1 
+kind: Service 
+metadata:
+  name: ecart-svc-fk
+spec:
+  selector:
+    app: ecart-fk
+  ports:
+    - protocol: TCP
+      port: 3000
+      targetPort: 3000
+  type: ClusterIP
