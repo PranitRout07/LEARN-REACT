@@ -12,7 +12,8 @@ type PostgresStore struct {
 }
 
 func CreatePostgresStore() *PostgresStore {
-	connStr := "postgres://postgres:ecart@host.docker.internal:5432?sslmode=disable"
+	// connStr := "postgres://postgres:ecart@host.docker.internal:5432?sslmode=disable" //dev(only in docker desktop)
+	connStr := "postgres://postgres:ecart@postgres-svc.default.svc.cluster.local:5432?sslmode=disable" //prod
 	db, err := sql.Open("postgres", connStr)
 	if err != nil {
 		panic(err)
